@@ -1,0 +1,39 @@
+<script>
+var linkwithin_site_id = 2458105;
+</script>
+<script src="http://www.linkwithin.com/widget.js"></script>
+<a href="http://www.linkwithin.com/"><img src="http://www.linkwithin.com/pixel.png" alt="Related Posts Plugin for WordPress, Blogger..." style="border: 0" /></a>
+
+<style type="text/css">
+    em {color: #857459; font-size: 85%}
+    strong {color: #DB624E; font-size: 105%; font-weight: bolder}
+    .entry-content blockquote p { margin: 1em;   }
+    em a {color: #857459;}
+    strong a {color: #DB624E; font-weight: bolder}
+    em a:visited {color: #857459;}
+    strong a:visited {color: #DB624E; font-weight: bolder}
+
+	/*Easy <a href="#" class="tooltip">Tooltip<span>This is the crazy little Easy Tooltip Text.</span></a>.*/
+	button:hover {background:#ffffff; text-decoration:none;} /*BG color is a must for IE6*/
+	button.tooltip span {
+		display:none;
+		padding:2px 3px;
+		/*margin-left:8px;		位置指定の方法変更により不要になったので削除*/
+		width:200px;		/*吹き出しの幅を200pxに変更*/
+	}
+	button.tooltip:hover span{
+		display:inline;
+		position:absolute;
+		/*border:1px solid #dc0000;	吹き出しの枠線色を削除*/
+		background:#000000;         /*吹き出しの背景色の変更*/
+		color:#fff;                 /*吹き出しの文字色の変更*/
+		top:25px;                /*位置指定追加。クエスチョンマークの下端から、吹き出しの下端を25px上げる*/
+		left:-100px;                /*位置指定追加。吹き出しの幅の半分を左に移動させる*/
+	}
+	/*対象語句*/
+	button.tooltip{
+		display:inline-block;
+		position:relative;	/*吹き出しの表示位置指定の基準とするため追加*/
+	}
+}
+</style>

@@ -1,0 +1,22 @@
+<script>
+var linkwithin_site_id = 2458105;
+</script>
+<script src="http://www.linkwithin.com/widget.js"></script>
+<a href="http://www.linkwithin.com/"><img src="http://www.linkwithin.com/pixel.png" alt="Related Posts Plugin for WordPress, Blogger..." style="border: 0" /></a>
+
+<style type="text/css">
+/*    em {color: #857459; font-size: 85%}
+    strong {color: #DB624E; font-size: 105%; font-weight: bolder}
+    .entry-content blockquote p { margin: 1em;   }
+    em a {color: #857459;}
+    strong a {color: #DB624E; font-weight: bolder}
+    em a:visited {color: #857459;}
+    strong a:visited {color: #DB624E; font-weight: bolder}
+*/
+</style>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
