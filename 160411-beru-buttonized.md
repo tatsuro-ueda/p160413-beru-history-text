@@ -281,6 +281,16 @@ var jQuery;
                 caption: 'カミーユ・デムーランの肖像'
             },
             content: 'ベルナール・シャトレ。架空の人物だが、弁護士でジャーナリストのカミーユ・デムーランという人がモデル。ルイ・ル・グラン学校では<button>ロベスピエール</button>と机を並べて学んだ。'
+        },
+        '地図：マリー・アントワネットの婚姻': {
+            level: EXTRA,
+            type: '地図',
+            content: '<iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kTvDi1PoG2I0"  height="300px"></iframe>'
+        },
+        'オスカルの移動': {
+            level: EXTRA,
+            type: '地図',
+            content: '<iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kLeT4-TkoEo4" height="300"></iframe>'
         }
     };
     var keyword;
@@ -318,8 +328,6 @@ var jQuery;
         return btnedHtml;
     }
     function btnClass(keyword) {
-        // if (dic[keyword] != null) {
-        console.log([keyword, dic[keyword].level]);
         switch (dic[keyword].level) {
             case IMPORTANT:
                 return 'button button-rounded button-caution';
@@ -330,10 +338,6 @@ var jQuery;
             default:
                 throw new Error("重要度が指定されていません");
         }
-        // } else {
-        //     console.log(dic[keyword]);
-        //     throw new Error("登録されていない語句です");
-        // }
     }
     $(function () {
         for (keyword in dic) {
@@ -341,39 +345,12 @@ var jQuery;
                 .attr({
                 'data-title': '【' + dic[keyword].type + '】' + keyword,
                 'data-content': contentHtml(dic[keyword]),
-                // imgSmall2(dic[keyword].img) + dic[keyword].content.replace(
-                //     /<button>/g,
-                //     '<button class="button button-rounded button-primary">'),
-                // 'data-content': dic[keyword].content.replace(
-                //     /<button>/g,
-                //     '<button class="button button-rounded button-primary">'),
                 'data-width': 400,
                 'data-multi': true,
-                // 'class': 'button button-rounded button-primary'
                 'class': btnClass(keyword)
             })
                 .webuiPopover();
         }
-        // function buttonize() {
-        //     var d = new $.Deferred;
-        //     setTimeout(function(){
-        //         for (keyword in dic) {
-        //             $('button:contains('+ keyword + ')')
-        //             .attr({
-        //                 'data-title': '【' + dic[keyword].type + '】' + keyword, 
-        //                 'data-content': dic[keyword].content,
-        //                 'data-width': 400
-        //             })
-        //             .webuiPopover()
-        //         }
-        //     }, 1000);
-        //     d.resolve();
-        //     return d.promise();
-        // };
-        // buttonize()
-        // .then(function(){
-        //     console.log('just buttonized');
-        // })
     });
     $(document).on('click', 'button', (function (evt) {
         for (keyword in dic) {
@@ -412,9 +389,11 @@ var jQuery;
 
 [f:id:weed_7777:20160411165851g:plain]
 
-またパリ市内の場所は、位置関係がわかりやすいように、ノートルダム寺院からの経路を表示しています。
+下の地図の「赤」の地点をクリックしてみて下さい。
 
 <iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kQkyzRxYdq3Y" width="320" height="240"></iframe>
+
+なお、上のようにパリ市内の場所は、位置関係がわかりやすいように、ノートルダム寺院からの経路を表示しています。
 
 地図と画像で解説するわけです。準備はいいですか？では始めますよ。
 
@@ -424,9 +403,9 @@ var jQuery;
 
 >マリー・アントワネット  
 >「オーストリア・**<button>ハプスブルク家</button>**の皇女。14歳でフランスの<button>ブルボン家</button>に嫁ぐ。」
-
-<iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kTvDi1PoG2I0" width="320" height="240"></iframe>
-
+>
+><button>地図：マリー・アントワネットの婚姻</button>
+>
 >フェルゼン  
 >「_<button>オペラ座</button>_（ガルニエ宮）の_<button>仮面舞踏会</button>_でマリー・アントワネットと出会う」
 
@@ -440,7 +419,7 @@ var jQuery;
 
 オスカルは<button>オルレアン公</button>の宮殿に行き、その活気に驚きます。
 
-<iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kLeT4-TkoEo4" width="320" height="240"></iframe>
+<button>地図：オスカルの移動</button>
 
 >オスカル  
 >「なるほど・・・さすがは**<button>自由主義</button>**をもって聞こえる<button>オルレアン公</button>。**<button>第三身分</button>**の男たちがこうも出入りしているとは・・・」

@@ -293,6 +293,18 @@ var jQuery: any
                 caption: 'カミーユ・デムーランの肖像'
             },
             content:'ベルナール・シャトレ。架空の人物だが、弁護士でジャーナリストのカミーユ・デムーランという人がモデル。ルイ・ル・グラン学校では<button>ロベスピエール</button>と机を並べて学んだ。'
+        },
+        '地図：マリー・アントワネットの婚姻':
+        {
+            level: EXTRA,
+            type: '地図',
+            content: '<iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kTvDi1PoG2I0"  height="300px"></iframe>'
+        },
+        'オスカルの移動':
+        {
+            level: EXTRA,
+            type: '地図',
+            content: '<iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kLeT4-TkoEo4" height="300"></iframe>'
         }
     };
 
@@ -338,22 +350,16 @@ var jQuery: any
     }
 
     function btnClass(keyword): string {
-        // if (dic[keyword] != null) {
-        console.log([keyword, dic[keyword].level]);
-            switch (dic[keyword].level) {
-                case IMPORTANT:
-                    return 'button button-rounded button-caution';
-                case NORMAL:
-                    return 'button button-rounded button-primary';
-                case EXTRA:
-                    return 'button button-rounded button-highlight';
-                default:
-                    throw new Error("重要度が指定されていません");
-            }
-        // } else {
-        //     console.log(dic[keyword]);
-        //     throw new Error("登録されていない語句です");
-        // }
+        switch (dic[keyword].level) {
+            case IMPORTANT:
+                return 'button button-rounded button-caution';
+            case NORMAL:
+                return 'button button-rounded button-primary';
+            case EXTRA:
+                return 'button button-rounded button-highlight';
+            default:
+                throw new Error("重要度が指定されていません");
+        }
     }
 
     $(function() {
@@ -362,41 +368,12 @@ var jQuery: any
                 .attr({
                     'data-title': '【' + dic[keyword].type + '】' + keyword,
                     'data-content': contentHtml(dic[keyword]),
-                    // imgSmall2(dic[keyword].img) + dic[keyword].content.replace(
-                    //     /<button>/g,
-                    //     '<button class="button button-rounded button-primary">'),
-                    // 'data-content': dic[keyword].content.replace(
-                    //     /<button>/g,
-                    //     '<button class="button button-rounded button-primary">'),
                     'data-width': 400,
                     'data-multi': true,
-                    // 'class': 'button button-rounded button-primary'
                     'class': btnClass(keyword)
                 })
                 .webuiPopover()
         }
-
-        // function buttonize() {
-        //     var d = new $.Deferred;
-        //     setTimeout(function(){
-        //         for (keyword in dic) {
-        //             $('button:contains('+ keyword + ')')
-        //             .attr({
-        //                 'data-title': '【' + dic[keyword].type + '】' + keyword, 
-        //                 'data-content': dic[keyword].content,
-        //                 'data-width': 400
-        //             })
-        //             .webuiPopover()
-        //         }
-        //     }, 1000);
-        //     d.resolve();
-        //     return d.promise();
-        // };
-
-        // buttonize()
-        // .then(function(){
-        //     console.log('just buttonized');
-        // })
     });
     $(document).on('click', 'button', (function(evt){
         for (keyword in dic) {
