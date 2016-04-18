@@ -322,36 +322,35 @@ var jQuery;
                 throw new Error("重要度が指定されていません");
         }
     }
+    function poOption(keyword) {
+        return {
+            title: '【' + dic[keyword].type + '】' + keyword,
+            content: contentHtml(dic[keyword]),
+            width: 400,
+            multi: true
+        };
+    }
+    // ドキュメントロード直後、以下の処理を行う
+    // ボタンに内容を付与する
     $(function () {
         for (keyword in dic) {
             $('button:contains(' + keyword + ')')
-                .attr({
-                'data-title': '【' + dic[keyword].type + '】' + keyword,
-                'data-content': contentHtml(dic[keyword]),
-                'data-width': 400,
-                'data-multi': true,
-                'class': btnClass(keyword)
-            })
+                .attr({ 'class': btnClass(keyword) })
+                .webuiPopover(poOption(keyword))
                 .webuiPopover();
         }
     });
+    // ドキュメントロード後、クリックイベントに対して以下の処理を行う
+    // ボタンに内容を付与する
     $(document).on('click', 'button', (function (evt) {
-        for (keyword in dic) {
-            if ($(this).text() === keyword) {
-                $(this)
-                    .webuiPopover({
-                    title: '【' + dic[keyword].type + '】' + keyword,
-                    content: contentHtml(dic[keyword]),
-                    // imgSmall2(dic[keyword].img) + dic[keyword].content.replace(
-                    //     /<button>/g),
-                    trigger: 'manual',
-                    width: 400,
-                    multi: true
-                })
-                    .webuiPopover('show')
-                    .parent().html('hoge');
-            }
-        }
+        keyword = $(this).text();
+        $(this)
+            .webuiPopover(poOption(keyword))
+            .webuiPopover({
+            trigger: 'manual'
+        })
+            .webuiPopover('show')
+            .parent().html('hoge');
     }));
 })(jQuery);
 //# sourceMappingURL=160411-beru-buttonized.js.map
