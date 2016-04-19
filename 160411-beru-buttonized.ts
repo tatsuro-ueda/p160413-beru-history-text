@@ -332,6 +332,12 @@ var jQuery: any
         }
     }
 
+    function lenExplain(keyword) {
+        var htmlExplain: string = dic[keyword].content;
+        var textExplain: string = htmlExplain.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g,'');
+        return textExplain.length
+    }
+
     function contentHtml(keyword) {
         var imgHtml: string = imgSmall2(keyword.img);
         var cntHtml = imgHtml + keyword.content;
@@ -362,12 +368,14 @@ var jQuery: any
         }
     }
 
-    function poOption(keyword): string {
+    function poOption(keyword) {
         return {
-            title: '【' + dic[keyword].type + '】' + keyword,
+            // title: '【' + dic[keyword].type + '】' + keyword,
+            title: '【' + dic[keyword].type + '】' + keyword + '（' + lenExplain(keyword) +'文字）',
             content: contentHtml(dic[keyword]),
             width: 400,
-            multi: true
+            multi: true,
+            animation: 'pop'
         }
     }
 
@@ -376,13 +384,6 @@ var jQuery: any
     $(function() {
         for (keyword in dic) {
             $('button:contains('+ keyword + ')')
-                // .attr({
-                //     'data-title': '【' + dic[keyword].type + '】' + keyword,
-                //     'data-content': contentHtml(dic[keyword]),
-                //     'data-width': 400,
-                //     'data-multi': true,
-                //     'class': btnClass(keyword)
-                // })
                 .attr({'class':btnClass(keyword)})
                 .webuiPopover(poOption(keyword))
                 .webuiPopover()
@@ -399,6 +400,6 @@ var jQuery: any
                 trigger: 'manual',
             })
             .webuiPopover('show')
-            .parent().html('hoge');
+            .parent().html('hoge');  // 子popを描くためのおまじない
     }))
 })(jQuery);

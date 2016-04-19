@@ -302,6 +302,11 @@ var jQuery;
             return imgHtml;
         }
     }
+    function lenExplain(keyword) {
+        var htmlExplain = dic[keyword].content;
+        var textExplain = htmlExplain.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+        return textExplain.length;
+    }
     function contentHtml(keyword) {
         var imgHtml = imgSmall2(keyword.img);
         var cntHtml = imgHtml + keyword.content;
@@ -324,10 +329,12 @@ var jQuery;
     }
     function poOption(keyword) {
         return {
-            title: '【' + dic[keyword].type + '】' + keyword,
+            // title: '【' + dic[keyword].type + '】' + keyword,
+            title: '【' + dic[keyword].type + '】' + keyword + '（' + lenExplain(keyword) + '文字）',
             content: contentHtml(dic[keyword]),
             width: 400,
-            multi: true
+            multi: true,
+            animation: 'pop'
         };
     }
     // ドキュメントロード直後、以下の処理を行う
@@ -350,7 +357,7 @@ var jQuery;
             trigger: 'manual'
         })
             .webuiPopover('show')
-            .parent().html('hoge');
+            .parent().html('hoge'); // 子popを描くためのおまじない
     }));
 })(jQuery);
 //# sourceMappingURL=160411-beru-buttonized.js.map
