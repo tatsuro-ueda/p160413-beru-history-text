@@ -25,25 +25,90 @@ var jQuery;
     var IMPORTANT = 0;
     var NORMAL = 1;
     var EXTRA = 2;
+    var shouldCount = false;
     var dic = {
         'ここを押してみて下さい': {
+            level: EXTRA,
+            type: '解説',
+            content: '<div align="center"><button>スマホ・タブレット</button></div>'
+                + 'ですか？'
+                + '<h5>続き：</h5>'
+                + '<button>吹き出しの消し方</button>',
+            placement: 'bottom'
+        },
+        'スマホ・タブレット': {
             level: NORMAL,
-            type: 'この記事の読み方',
-            content: '説明が画面の外に出るときは吹き出しを引っ張って下さい。なお、<button>重要語句</button>というように他の語句へのボタンがあります。活用して下さい。'
+            type: '解説',
+            content: '吹き出しが画面の外に出るときは<strong>吹き出しを引っ張って</strong>下さい。'
+                + '<h5>続き：</h5>'
+                + '<button>吹き出しの消し方</button>',
+            placement: 'bottom'
+        },
+        '吹き出しの消し方': {
+            level: EXTRA,
+            type: '解説',
+            content: '吹き出しのないところを押して下さい。'
+                + '<h5>続き：</h5>'
+                + '<button>語句の重要度</button>'
+        },
+        '語句の重要度': {
+            level: IMPORTANT,
+            type: '解説',
+            content: '3レベルあります'
+                + '<p><button>重要語句</button></p>'
+                + '<p><button>深掘り語句</button></p>'
+                + '<p><button>余談</button></p>'
+                + '<h5>続き：</h5>'
+                + '<button>地図の見方</button>'
+        },
+        '地図の見方': {
+            level: EXTRA,
+            type: '解説',
+            content: '<img src="http://cdn-ak.f.st-hatena.com/images/fotolife/w/weed_7777/20160411/20160411165851.gif" />これは「アントワネット」が「緑」の地点から「赤」の地点に移動した、ということです。緑・赤の地点を押すと地名と解説が出ます。'
+                + '<h5>続き：</h5>'
+                + '<button>地図を押してみよう</button>'
+        },
+        '地図を押してみよう': {
+            level: EXTRA,
+            type: '解説',
+            content: '<p>下の地図（少し時間がかかります）の「赤」の地点を押してみて下さい。</p>'
+                + '<p><iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kQkyzRxYdq3Y" width="320" height="240"></iframe></p>'
+                + '<p>パリ市内の場所は<strong>ノートルダム寺院からの経路</strong>を表示しています。</p>'
+                + '<h5>続き：</h5>'
+                + '<p><button>ビューの見方</button></p>'
+        },
+        'ビューの見方': {
+            level: EXTRA,
+            type: '解説',
+            content: '<p><iframe src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sja!2sjp!4v1459148169706!6m8!1m7!1sVfs3uZuxLHWwCPjmt-pXsw!2m2!1d48.87111407616459!2d2.33216326243794!3f343.62178183560997!4f16.939412639927582!5f0.7820865974627469" frameborder="0" style="border:0" allowfullscreen></iframe></p>'
+                + '<p>PCでは、上の360°画像をつかみ（ドラッグ、押しっぱなし）動かすと好きな方向に動かすことができます。やってみて下さい。</p>'
+                + '<p>スマホ・タブレットでは、動かすことはできません。</p>'
+                + '<h5>続き：</h5>'
+                + '<p><button>ビュー（インドア）の見方</button></p>'
+        },
+        'ビュー（インドア）の見方': {
+            level: EXTRA,
+            type: '解説',
+            content: '<p><a href="https://www.google.co.jp/maps/place/Le+Palais+Royal/@48.8642472,2.337425,3a,75y,4.33h,75t/data=!3m8!1e1!3m6!1s-hqCwgntaMJY%2FVt6kXepn-MI%2FAAAAAAAAAW8%2Fo08pf9VIACoKTtkaxKkW2olpO3vufn3Sw!2e4!3e11!6s%2F%2Flh6.googleusercontent.com%2F-hqCwgntaMJY%2FVt6kXepn-MI%2FAAAAAAAAAW8%2Fo08pf9VIACoKTtkaxKkW2olpO3vufn3Sw%2Fw203-h101-n-k-no%2F!7i8000!8i4000!4m2!3m1!1s0x47e66e1fd8767d47:0xcdcb526c397f16f5!6m1!1e1">'
+                + imgSmall("20160401/20160401141640.png", true, "左の画像をクリックすると別ページの360°ビューになります。PCでは好きな方向に動かすことができます。やってみて下さい。）")
+                + '</a></p><br clear="left" />'
+                + '<p>スマホ・タブレットでは、動かすことはできません。</p>'
+                + '<p>これで説明は終わりです。</p>'
+                + '<h5>お疲れさまでした！</h5>'
         },
         '重要語句': {
             level: IMPORTANT,
-            type: 'この記事の読み方',
-            content: '世界史を学習する上で外すことはできません。<strong>必ず</strong>理解して下さい。'
+            type: '解説',
+            content: '<strong>必ず</strong>理解して下さい。'
         },
         '深掘り語句': {
             level: NORMAL,
-            type: 'この記事の読み方',
+            type: '解説',
             content: '知っていると世界史の流れが理解しやすいです。'
         },
         '余談': {
             level: EXTRA,
-            type: 'この記事の読み方',
+            type: '解説',
             content: 'どちらかと言うと世界史よりも『ベルサイユのばら』を理解するための説明です。'
         },
         'オルレアン公': {
@@ -53,7 +118,17 @@ var jQuery;
                 filename: '20160328/20160328114737.jpg',
                 isLandscape: false
             },
-            content: 'フランスの王族で国王のいとこにあたり、王国有数の富豪であった。公爵は、その財力をもって王位を狙う野心家で、革命前に最初に国王に逆らい<button>自由主義</button>貴族の代表となった。バスティーユ襲撃事件を誘発し、フランス革命が勃発すると歓迎して「平等公フィリップ」を自称した。なお、私生活は放蕩かつ無節操だった。'
+            content: 'フランスの王族で国王のいとこにあたり、王国有数の富豪であった。公爵は、その財力をもって王位を狙う野心家で、革命前に最初に国王に逆らい<button>自由主義</button>貴族の代表となった。<button>オルレアン公：詳細</button>',
+            wikipedia: 'https://ja.wikipedia.org/wiki/%E3%83%AB%E3%82%A4%E3%83%BB%E3%83%95%E3%82%A3%E3%83%AA%E3%83%83%E3%83%972%E4%B8%96_(%E3%82%AA%E3%83%AB%E3%83%AC%E3%82%A2%E3%83%B3%E5%85%AC)'
+        },
+        'オルレアン公：詳細': {
+            level: EXTRA,
+            type: '人物',
+            img: {
+                filename: '20160419/20160419092856.jpg',
+                isLandscape: false
+            },
+            content: 'バスティーユ襲撃事件を誘発し、フランス革命が勃発すると歓迎して「平等公フィリップ」を自称した。なお、私生活は放蕩かつ無節操だった。'
         },
         'ハプスブルク家': {
             level: IMPORTANT,
@@ -63,7 +138,7 @@ var jQuery;
                 isLandscape: true,
                 caption: '1547年時点でのハプスブルク家の領土'
             },
-            content: 'ヨーロッパ随一の名門王家。政略結婚により大貴族に成長した。20世紀初頭まで中部ヨーロッパで強大な勢力を誇り、様々な国の国王・皇帝の家系となった。また、神聖ローマ帝国の皇帝位を中世以来保持した。最後はビスマルクが排除した。'
+            content: 'ヨーロッパ随一の名門王家。政略結婚により大貴族に成長した。20世紀初頭まで中部ヨーロッパで強大な勢力を誇り、様々な国の国王・皇帝の家系となった。'
         },
         '第三身分': {
             level: IMPORTANT,
@@ -188,15 +263,22 @@ var jQuery;
             },
             content: '<p><iframe src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sja!2sjp!4v1459487609649!6m8!1m7!1sa37NF5mxyuTWHIA3VTUgow!2m2!1d48.86278015564088!2d2.337007608338476!3f20.846674658759838!4f11.022677808318875!5f0.7820865974627469" frameborder="0" style="border:0" allowfullscreen></iframe></p>'
                 + '<p><iframe src="https://www.google.com/maps/d/u/0/embed?mid=zxuorCdgTka8.kZM0bOW34Q-w"></iframe></p>'
-                + '<p><a href="https://www.google.co.jp/maps/place/Le+Palais+Royal/@48.8642472,2.337425,3a,75y,4.33h,75t/data=!3m8!1e1!3m6!1s-hqCwgntaMJY%2FVt6kXepn-MI%2FAAAAAAAAAW8%2Fo08pf9VIACoKTtkaxKkW2olpO3vufn3Sw!2e4!3e11!6s%2F%2Flh6.googleusercontent.com%2F-hqCwgntaMJY%2FVt6kXepn-MI%2FAAAAAAAAAW8%2Fo08pf9VIACoKTtkaxKkW2olpO3vufn3Sw%2Fw203-h101-n-k-no%2F!7i8000!8i4000!4m2!3m1!1s0x47e66e1fd8767d47:0xcdcb526c397f16f5!6m1!1e1">'
+                + 'ルイ14世がルーヴル宮殿から移り住んだことで、パレ・ロワイヤル（王宮）と呼ばれるようになった。庶民は庭園で散歩を楽しむことができた。<button>パレ・ロワイヤル：庭園</button><button>パレ・ロワイヤル：内部</button>'
+                + '</p>'
+        },
+        'パレ・ロワイヤル：庭園': {
+            level: EXTRA,
+            type: '場所',
+            content: '<a href="https://www.google.co.jp/maps/place/Le+Palais+Royal/@48.8642472,2.337425,3a,75y,4.33h,75t/data=!3m8!1e1!3m6!1s-hqCwgntaMJY%2FVt6kXepn-MI%2FAAAAAAAAAW8%2Fo08pf9VIACoKTtkaxKkW2olpO3vufn3Sw!2e4!3e11!6s%2F%2Flh6.googleusercontent.com%2F-hqCwgntaMJY%2FVt6kXepn-MI%2FAAAAAAAAAW8%2Fo08pf9VIACoKTtkaxKkW2olpO3vufn3Sw%2Fw203-h101-n-k-no%2F!7i8000!8i4000!4m2!3m1!1s0x47e66e1fd8767d47:0xcdcb526c397f16f5!6m1!1e1">'
                 + imgSmall('20160401/20160401141640.png', true, '庭園（クリックするとストリートビューになります）')
                 + '</a></p><br clear="left" />'
-                + '<a href="https://www.google.co.jp/maps/@48.8660167,2.3383833,3a,75y,46.85h,82.48t/data=!3m8!1e1!3m6!1s-hgQgQY_p7tA%2FVfA-g6DIWBI%2FAAAAAAAAoiQ%2F8meU1TS6Tak!2e4!3e11!6s%2F%2Flh6.googleusercontent.com%2F-hgQgQY_p7tA%2FVfA-g6DIWBI%2FAAAAAAAAoiQ%2F8meU1TS6Tak%2Fw203-h101-n-k-no%2F!7i6000!8i3000!6m1!1e1>'
+        },
+        'パレ・ロワイヤル：内部': {
+            level: EXTRA,
+            type: '場所',
+            content: +'<a href="https://www.google.co.jp/maps/@48.8660167,2.3383833,3a,75y,46.85h,82.48t/data=!3m8!1e1!3m6!1s-hgQgQY_p7tA%2FVfA-g6DIWBI%2FAAAAAAAAoiQ%2F8meU1TS6Tak!2e4!3e11!6s%2F%2Flh6.googleusercontent.com%2F-hgQgQY_p7tA%2FVfA-g6DIWBI%2FAAAAAAAAoiQ%2F8meU1TS6Tak%2Fw203-h101-n-k-no%2F!7i6000!8i3000!6m1!1e1>'
                 + imgSmall('20160401/20160401140223.png', true, '内部（クリックするとストリートビューになります）')
                 + '</a><br clear="left" />'
-                + '<p>'
-                + 'ルイ14世がルーヴル宮殿から移り住んだことで、パレ・ロワイヤル（王宮）と呼ばれるようになった。庶民は庭園で散歩を楽しむことができた。'
-                + '</p>'
         },
         '近衛隊': {
             level: EXTRA,
@@ -328,13 +410,29 @@ var jQuery;
         }
     }
     function poOption(keyword) {
+        var placement;
+        if (dic[keyword].placement === 'bottom') {
+            placement = 'bottom';
+        }
+        else {
+            placement = 'auto';
+        }
+        var title = '【' + dic[keyword].type + '】' + keyword;
+        if (shouldCount) {
+            title += '（' + lenExplain(keyword) + '文字）';
+        }
+        var width = 400;
+        var winWidth = window.innerWidth;
+        if (winWidth <= 500) {
+            width = winWidth * 0.8;
+        }
         return {
-            // title: '【' + dic[keyword].type + '】' + keyword,
-            title: '【' + dic[keyword].type + '】' + keyword + '（' + lenExplain(keyword) + '文字）',
+            title: title,
             content: contentHtml(dic[keyword]),
-            width: 400,
+            width: width,
             multi: true,
-            animation: 'pop'
+            animation: 'pop',
+            placement: placement
         };
     }
     // ドキュメントロード直後、以下の処理を行う
